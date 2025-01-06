@@ -1,50 +1,47 @@
 package com.example.Employee.service;
 
-import com.example.Employee.Exeption.EmployeeAlreadyAddedException;
-import com.example.Employee.Exeption.EmployeeNotFoundException;
+import com.example.Employee.Exeption.InvalidInputException;
 import com.example.Employee.model.Employee;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import static org.apache.commons.lang3.StringUtils.*;
 @Service
 public class EmployeeServiceImpl implements EmployeeService {
+    @Override
+    public Employee add(String firstName, String lastName, int salary, int departament) {
+        if (!validataInput(firstName, lastName)) {
+            throw new InvalidInputException();
+        }
+        return null;
+    }
 
-    private final List<Employee> employeeList = new ArrayList<>();
 
     @Override
-    public Employee add(String firstName, String lastName) {
-        Employee employee = new Employee(firstName, lastName);
-        if (employeeList.contains(employee)) {
-            throw new EmployeeAlreadyAddedException();
+    public Employee remove(String firstName, String lastName, int salary, int departament) {
+        if (!validataInput(firstName, lastName)) {
+            throw new InvalidInputException();
         }
-        employeeList.add(employee);
-        return employee;
+        return null;
     }
 
     @Override
-    public Employee remove(String firstName, String lastName) {
-        Employee employee = new Employee(firstName, lastName);
-        if (employeeList.contains(employee)) {
-            employeeList.remove(employee);
-            return employee;
+    public Employee find(String firstName, String lastName, int salary, int departament) {
+        if (!validataInput(firstName, lastName)) {
+            throw new InvalidInputException();
         }
-        throw new EmployeeNotFoundException();
-    }
-
-    @Override
-    public Employee find(String firstName, String lastName) {
-        Employee employee = new Employee(firstName, lastName);
-        if (employeeList.contains(employee)) {
-            return employee;
-        }
-        throw new EmployeeNotFoundException();
+        return null;
     }
 
     @Override
     public Collection<Employee> findAll() {
-        return new ArrayList<>(employeeList);
+        return List.of();
+    }
+
+    private boolean validataInput(String firstName, String lastName) {
+        return isAlpha(firstName) && isAlpha(lastName);
     }
 }
