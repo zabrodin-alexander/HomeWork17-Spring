@@ -2,15 +2,21 @@ package com.example.Employee.service;
 
 import com.example.Employee.Exeption.InvalidInputException;
 import com.example.Employee.model.Employee;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
-import java.util.Collection;
-import java.util.List;
+import java.util.*;
 
 import static org.apache.commons.lang3.StringUtils.*;
+
 @Service
 public class EmployeeServiceImpl implements EmployeeService {
+
+    private  Map<String, Employee> employees;
+
+    public void EmployeeService() {
+        employees = new HashMap<>();
+    }
+
     @Override
     public Employee add(String firstName, String lastName, int salary, int departament) {
         if (!validataInput(firstName, lastName)) {
@@ -18,7 +24,6 @@ public class EmployeeServiceImpl implements EmployeeService {
         }
         return null;
     }
-
 
     @Override
     public Employee remove(String firstName, String lastName, int salary, int departament) {
@@ -44,4 +49,6 @@ public class EmployeeServiceImpl implements EmployeeService {
     private boolean validataInput(String firstName, String lastName) {
         return isAlpha(firstName) && isAlpha(lastName);
     }
+
+
 }
