@@ -2,42 +2,43 @@ package com.example.Employee.controller;
 
 import com.example.Employee.model.Employee;
 import com.example.Employee.service.EmployeeService;
-import com.example.Employee.service.EmployeeServiceImpl;
+import com.example.Employee.service.impl.EmployeeServiceImpl;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.Collection;
+import java.util.Map;
 
 
 @RestController
 @RequestMapping("/employee")
 public class EmpolyeeController {
-    final private EmployeeService service;
+    private final EmployeeServiceImpl employeeService;
 
-    public EmpolyeeController(EmployeeServiceImpl service) {
-        this.service = service;
+    public EmpolyeeController(EmployeeServiceImpl employeeService) {
+        this.employeeService = employeeService;
     }
 
     @GetMapping("/add")
-    public Employee addEmployee(@RequestParam String firstName, @RequestParam String lastName, @RequestParam int salary, @RequestParam int departament) {
-        return service.add(firstName, lastName, salary, departament);
+    public Employee addEmployee(@RequestParam String firstName, @RequestParam String lastName, @RequestParam int salary, @RequestParam int department) {
+        return employeeService.add(firstName, lastName, salary, department);
     }
 
+
     @GetMapping("/remove")
-    public Employee removeEmployee(@RequestParam String firstName, @RequestParam String lastName, @RequestParam int salary, @RequestParam int departament) {
-        return service.remove(firstName, lastName, salary, departament);
+    public Employee removeEmployee(@RequestParam String firstName, @RequestParam String lastName, @RequestParam int salary, @RequestParam int department) {
+        return employeeService.remove(firstName, lastName, salary, department);
     }
 
     @GetMapping("/find")
-    public Employee finfEmployee(@RequestParam String firstName, @RequestParam String lastName, @RequestParam int salary, @RequestParam int departament) {
-        return service.find(firstName, lastName, salary, departament);
+    public Employee findEmployee(@RequestParam String firstName, @RequestParam String lastName, @RequestParam int salary, @RequestParam int department) {
+        return employeeService.find(firstName, lastName, salary, department);
     }
 
     @GetMapping
-    public Collection<Employee> findAll() {
-        return service.findAll();
+    public Map<String, Employee> findAll() {
+        return employeeService.findAll();
     }
 
 }
